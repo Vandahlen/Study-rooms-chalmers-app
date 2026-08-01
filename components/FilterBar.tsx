@@ -1,4 +1,4 @@
-// study-rooms/components/FilterBar.tsx
+// components/FilterBar.tsx
 /**
  * components/FilterBar.tsx
  *
@@ -9,6 +9,8 @@
 import React from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import ChalmersText from './ChalmersText';
+import SearchIcon from './SearchIcon';
+import FilterIcon from './FilterIcon';
 import { colors, radii, spacing } from '../theme/theme';
 import { useTheme } from '../theme/ThemeContext';
 import { useI18n } from '../i18n/I18nContext';
@@ -37,19 +39,25 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <View style={styles.container}>
-      <TextInput
-        value={search}
-        onChangeText={onSearchChange}
-        placeholder={t.studyRoomsSearchPlaceholder}
-        placeholderTextColor={theme.subText}
+      <View
         style={[
-          styles.search,
-          { borderColor: theme.border, backgroundColor: theme.inputBg, color: theme.text },
+          styles.searchRow,
+          { borderColor: theme.border, backgroundColor: theme.inputBg },
         ]}
-        accessibilityLabel={t.studyRoomsSearchPlaceholder}
-      />
+      >
+        <SearchIcon size={16} color={theme.subText} />
+        <TextInput
+          value={search}
+          onChangeText={onSearchChange}
+          placeholder={t.studyRoomsSearchPlaceholder}
+          placeholderTextColor={theme.subText}
+          style={[styles.search, { color: theme.text }]}
+          accessibilityLabel={t.studyRoomsSearchPlaceholder}
+        />
+      </View>
 
       <View style={styles.chipRow}>
+        <FilterIcon size={16} color={theme.subText} style={styles.filterIcon} />
         {CAPACITY_OPTIONS.map((option) => {
           const selected = minCapacity === option;
           return (
@@ -94,16 +102,27 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: spacing.md,
   },
-  search: {
+  searchRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
     borderWidth: 1,
     borderRadius: radii.sm,
-    padding: spacing.sm,
+    paddingHorizontal: spacing.sm,
     marginBottom: spacing.sm,
+  },
+  search: {
+    flex: 1,
+    paddingVertical: spacing.sm,
   },
   chipRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'center',
     gap: spacing.xs,
+  },
+  filterIcon: {
+    marginRight: spacing.xs / 2,
   },
   chip: {
     borderWidth: 1,

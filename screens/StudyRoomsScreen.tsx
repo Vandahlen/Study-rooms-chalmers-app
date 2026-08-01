@@ -5,7 +5,7 @@
  * useStudyRooms and renders the bookable-rooms / open-areas list.
  */
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import ChalmersText from '../components/ChalmersText';
 import ChalmersButton from '../components/ChalmersButton';
 import { spacing } from '../theme/theme';
@@ -18,6 +18,12 @@ import TabSwitcher from '../components/TabSwitcher';
 import FilterBar from '../components/FilterBar';
 
 export interface StudyRoomsScreenProps {
+  /**
+   * Must be a stable reference across renders (e.g. created once via
+   * `useMemo`, module scope, or a ref) - not recreated inline on every
+   * render (`repository={createMockStudyRoomRepository()}`), or the
+   * fetch effect in `useStudyRooms` will re-trigger on every render.
+   */
   repository: IStudyRoomRepository;
 }
 
@@ -52,6 +58,12 @@ const StudyRoomsScreen: React.FC<StudyRoomsScreenProps> = ({ repository }) => {
         whiteboardOnly={filters.whiteboardOnly}
         onWhiteboardOnlyChange={setWhiteboardOnly}
       />
+
+      {loadState === 'loading' && (
+        <View style={styles.centered}>
+          <ActivityIndicator color={theme.subText} />
+        </View>
+      )}
 
       {loadState === 'error' && (
         <View style={styles.centered}>

@@ -18,6 +18,13 @@ export type LoadState = 'loading' | 'ready' | 'error';
 export type RoomTab = 'bookable' | 'open';
 
 export interface UseStudyRoomsArgs {
+  /**
+   * Must be a stable reference across renders (e.g. created once via
+   * `useMemo`, module scope, or a ref) - not recreated inline on every
+   * render (`repository={createMockStudyRoomRepository()}`). A new
+   * identity each render recreates `load`, which re-runs the fetch
+   * effect, which triggers a re-render, in an infinite loop.
+   */
   repository: IStudyRoomRepository;
 }
 

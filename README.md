@@ -91,3 +91,8 @@ npm run typecheck  # tsc --noEmit
 - **Integration into `agila`** - this package isn't wired into the
   `agila` app yet; that's a separate step once a host navigation
   structure exists there.
+- **User-adjustable sort / building filter chip** - the design spec
+  calls for both, but the current implementation has a fixed
+  longest-available-first sort (not user-adjustable) and no dedicated
+  building filter chip; free-text search covers building/room name
+  lookup instead. Could be added later if wanted.

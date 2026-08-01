@@ -37,15 +37,19 @@ test('shows bookable rooms by default, longest-available-first', async () => {
 });
 
 test('switching to the open areas tab shows non-bookable rooms', async () => {
-  const { Pressable } = require('react-native');
   let renderer: ReactTestRenderer.ReactTestRenderer;
   await ReactTestRenderer.act(async () => {
     renderer = renderScreen();
   });
 
-  const tabButtons = renderer!.root.findAllByType(Pressable);
+  // findAllByType(Pressable) cannot match RN's memo-wrapped Pressable
+  // under React 19 + react-test-renderer 19.2.3 (a fiber-internals
+  // incompatibility, unrelated to this screen's wiring) - look the tab
+  // button up by testID instead. TabSwitcher renders `testID={`tab-${value}`}`
+  // on each tab Pressable.
+  const openTabButton = renderer!.root.findByProps({ testID: 'tab-open' });
   await ReactTestRenderer.act(async () => {
-    tabButtons[1].props.onPress();
+    openTabButton.props.onPress();
   });
 
   const output = JSON.stringify(renderer!.toJSON());

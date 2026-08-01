@@ -1,0 +1,78 @@
+[
+  {
+    "id": "edit-5128",
+    "name": "EDIT 5128",
+    "building": "EDIT",
+    "capacity": 6,
+    "hasWhiteboard": true,
+    "isShared": false,
+    "bookable": true,
+    "freeUntil": "2026-08-01T14:30:00.000Z",
+    "bookingUrl": "https://example.chalmers.se/book"
+  },
+  {
+    "id": "ml2",
+    "name": "ML2",
+    "building": "Maskin",
+    "capacity": 4,
+    "hasWhiteboard": false,
+    "isShared": true,
+    "otherHalfFree": false,
+    "bookable": true,
+    "freeUntil": "2026-08-01T12:15:00.000Z",
+    "bookingUrl": "https://example.chalmers.se/book"
+  },
+  {
+    "id": "sb-h3",
+    "name": "SB-H3",
+    "building": "Sven Hultin",
+    "capacity": 10,
+    "hasWhiteboard": true,
+    "isShared": false,
+    "bookable": true,
+    "freeUntil": "2026-08-01T17:00:00.000Z",
+    "bookingUrl": "https://example.chalmers.se/book"
+  },
+  {
+    "id": "edit-3103",
+    "name": "EDIT 3103",
+    "building": "EDIT",
+    "capacity": 2,
+    "hasWhiteboard": true,
+    "isShared": true,
+    "otherHalfFree": true,
+    "bookable": true,
+    "freeUntil": "2026-08-01T15:45:00.000Z",
+    "bookingUrl": "https://example.chalmers.se/book"
+  },
+  {
+    "id": "vasa-a",
+    "name": "Vasa A",
+    "building": "Vasa",
+    "capacity": 8,
+    "hasWhiteboard": false,
+    "isShared": false,
+    "bookable": false,
+    "freeUntil": null
+  },
+  {
+    "id": "kh-atrium",
+    "name": "Kärnhuset Atrium",
+    "building": "Kärnhuset",
+    "capacity": 20,
+    "hasWhiteboard": false,
+    "isShared": false,
+    "bookable": false,
+    "freeUntil": null
+  },
+  {
+    "id": "ml-lounge",
+    "name": "Maskin Lounge",
+    "building": "Maskin",
+    "capacity": 12,
+    "hasWhiteboard": true,
+    "isShared": false,
+    "bookable": false,
+    "freeUntil": null
+  }
+]

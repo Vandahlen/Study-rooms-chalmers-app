@@ -6,10 +6,7 @@
  */
 import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import ChalmersText from '../components/ChalmersText';
-import ChalmersButton from '../components/ChalmersButton';
-import { spacing } from '../theme/theme';
-import { useTheme } from '../theme/ThemeContext';
+import { ChalmersText, ChalmersButton, spacing, useTheme } from 'kar-ui-kit';
 import { useI18n } from '../i18n/I18nContext';
 import { useStudyRooms } from '../hooks/useStudyRooms';
 import { IStudyRoomRepository, StudyRoom } from '../types/studyRoom';

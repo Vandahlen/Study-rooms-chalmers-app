@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
+    "kar-ui-kit": "file:../kar-ui-kit",
     "react": "19.2.3",
     "react-native": "0.86.0",
     "react-native-svg": "^15.15.5"

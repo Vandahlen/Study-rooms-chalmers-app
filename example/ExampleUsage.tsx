@@ -9,7 +9,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import StudyRoomsScreen from '../screens/StudyRoomsScreen';
 import { createMockStudyRoomRepository } from '../services/MockStudyRoomRepository';
-import { ThemeProvider } from '../theme/ThemeContext';
+import { ThemeProvider } from 'kar-ui-kit';
 import { I18nProvider } from '../i18n/I18nContext';
 
 const repository = createMockStudyRoomRepository();

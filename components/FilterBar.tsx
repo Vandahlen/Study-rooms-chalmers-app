@@ -8,11 +8,7 @@
  */
 import React from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import ChalmersText from './ChalmersText';
-import SearchIcon from './SearchIcon';
-import FilterIcon from './FilterIcon';
-import { colors, radii, spacing } from '../theme/theme';
-import { useTheme } from '../theme/ThemeContext';
+import { ChalmersText, SearchIcon, FilterIcon, colors, radii, spacing, useTheme } from 'kar-ui-kit';
 import { useI18n } from '../i18n/I18nContext';
 
 const CAPACITY_OPTIONS: Array<number | null> = [null, 2, 4, 8];

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
 import StudyRoomsScreen from './StudyRoomsScreen';
 import { createMockStudyRoomRepository } from '../services/MockStudyRoomRepository';
-import { ThemeProvider } from '../theme/ThemeContext';
+import { ThemeProvider } from 'kar-ui-kit';
 import { I18nProvider } from '../i18n/I18nContext';
 
 function renderScreen(): ReactTestRenderer.ReactTestRenderer {

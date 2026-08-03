@@ -82,3 +82,37 @@ test('switching sort order to soonest reorders the bookable rooms', async () => 
   expect(idxEdit5128).toBeLessThan(idxEdit3103);
   expect(idxEdit3103).toBeLessThan(idxSbH3);
 });
+
+test('shows an error state with a working retry when the repository rejects', async () => {
+  let attempts = 0;
+  const failingRepository: import('../types/studyRoom').IStudyRoomRepository = {
+    getRooms: async () => {
+      attempts += 1;
+      if (attempts === 1) throw new Error('network down');
+      return [];
+    },
+  };
+
+  let renderer: ReactTestRenderer.ReactTestRenderer;
+  await ReactTestRenderer.act(async () => {
+    renderer = ReactTestRenderer.create(
+      <ThemeProvider>
+        <I18nProvider>
+          <StudyRoomsScreen repository={failingRepository} />
+        </I18nProvider>
+      </ThemeProvider>,
+    );
+  });
+
+  let output = JSON.stringify(renderer!.toJSON());
+  expect(output).toContain("Kunde inte hämta lediga grupprum.");
+
+  const retryButton = renderer!.root.findByProps({ children: 'Försök igen' });
+  await ReactTestRenderer.act(async () => {
+    retryButton.parent!.parent!.parent!.props.onPress();
+  });
+
+  output = JSON.stringify(renderer!.toJSON());
+  expect(output).toContain('Inga rum matchar dina filter just nu.');
+  expect(attempts).toBe(2);
+});

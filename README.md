@@ -96,3 +96,8 @@ npm run typecheck  # tsc --noEmit
   longest-available-first sort (not user-adjustable) and no dedicated
   building filter chip; free-text search covers building/room name
   lookup instead. Could be added later if wanted.
+- **No auth/session identity** - `IStudyRoomRepository` assumes an
+  already-configured client, same as `weekly-evaluation`. A real
+  TimeEdit integration requiring per-user identity would add that as
+  a new parameter to the repository factory, not something this
+  interface currently provides.

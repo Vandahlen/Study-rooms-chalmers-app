@@ -1,5 +1,9 @@
 module.exports = {
   preset: '@react-native/jest-preset',
+  // Default 5000ms is tight for RN component renders (VirtualizedList,
+  // ThemeProvider) under CI's shared/slower runners with parallel workers -
+  // this test reliably takes ~1.4s alone but can blow past 5000ms under load.
+  testTimeout: 15000,
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-native-async-storage)/)',
   ],

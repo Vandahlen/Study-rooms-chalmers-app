@@ -116,3 +116,21 @@ test('shows an error state with a working retry when the repository rejects', as
   expect(output).toContain('Inga rum matchar dina filter just nu.');
   expect(attempts).toBe(2);
 });
+
+test('typing in the search box filters the visible rooms', async () => {
+  const { TextInput } = require('react-native');
+  let renderer: ReactTestRenderer.ReactTestRenderer;
+  await ReactTestRenderer.act(async () => {
+    renderer = renderScreen();
+  });
+
+  const searchInput = renderer!.root.findByType(TextInput);
+  await ReactTestRenderer.act(async () => {
+    searchInput.props.onChangeText('Sven Hultin');
+  });
+
+  const output = JSON.stringify(renderer!.toJSON());
+  expect(output).toContain('SB-H3');
+  expect(output).not.toContain('EDIT 5128');
+  expect(output).not.toContain('ML2');
+});

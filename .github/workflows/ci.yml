@@ -39,3 +39,42 @@ jobs:
         run: npx eslint .
       - working-directory: study-rooms
         run: npm test
+
+  ios:
+    # macos-14's default Xcode is 15.4; RN 0.86 requires >=16.1. macos-15
+    # defaults to a current Xcode that satisfies this.
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: study-rooms
+      - uses: actions/checkout@v4
+        with:
+          repository: Vandahlen/kar-ui-kit
+          path: kar-ui-kit
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - working-directory: kar-ui-kit
+        run: npm ci
+      - working-directory: study-rooms
+        run: npm ci
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: study-rooms
+      - name: Install CocoaPods dependencies
+        working-directory: study-rooms/ios
+        run: bundle exec pod install
+      - name: Build for iOS Simulator
+        working-directory: study-rooms/ios
+        run: |
+          xcodebuild \
+            -workspace StudyRooms.xcworkspace \
+            -scheme StudyRooms \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            build \
+            CODE_SIGNING_ALLOWED=NO

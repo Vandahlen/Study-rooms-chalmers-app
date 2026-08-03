@@ -5,15 +5,29 @@ import { createMockStudyRoomRepository } from '../services/MockStudyRoomReposito
 import { ThemeProvider } from 'kar-ui-kit';
 import { I18nProvider } from '../i18n/I18nContext';
 
+// VirtualizedList schedules an internal setTimeout (_updateCellsToRender)
+// that outlives the test unless unmounted, occasionally firing after Jest
+// tears the test env down and logging "Cannot log after tests are done" -
+// which Jest treats as a hard process failure regardless of test results.
+let activeRenderer: ReactTestRenderer.ReactTestRenderer | undefined;
+
+afterEach(() => {
+  ReactTestRenderer.act(() => {
+    activeRenderer?.unmount();
+  });
+  activeRenderer = undefined;
+});
+
 function renderScreen(): ReactTestRenderer.ReactTestRenderer {
   const repository = createMockStudyRoomRepository();
-  return ReactTestRenderer.create(
+  activeRenderer = ReactTestRenderer.create(
     <ThemeProvider>
       <I18nProvider>
         <StudyRoomsScreen repository={repository} />
       </I18nProvider>
     </ThemeProvider>,
   );
+  return activeRenderer;
 }
 
 test('shows bookable rooms by default, longest-available-first', async () => {
@@ -103,6 +117,7 @@ test('shows an error state with a working retry when the repository rejects', as
       </ThemeProvider>,
     );
   });
+  activeRenderer = renderer!;
 
   let output = JSON.stringify(renderer!.toJSON());
   expect(output).toContain("Kunde inte hämta lediga grupprum.");

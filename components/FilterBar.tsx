@@ -9,6 +9,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { ChalmersText, SearchIcon, FilterIcon, colors, radii, spacing, useTheme } from 'kar-ui-kit';
+import type { SortOrder } from '../services/roomFilters';
 import { useI18n } from '../i18n/I18nContext';
 
 const CAPACITY_OPTIONS: Array<number | null> = [null, 2, 4, 8];
@@ -20,6 +21,9 @@ export interface FilterBarProps {
   onMinCapacityChange: (minCapacity: number | null) => void;
   whiteboardOnly: boolean;
   onWhiteboardOnlyChange: (whiteboardOnly: boolean) => void;
+  sortOrder?: SortOrder;
+  onSortOrderChange?: (order: SortOrder) => void;
+  showSort?: boolean;
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({
@@ -29,6 +33,9 @@ const FilterBar: React.FC<FilterBarProps> = ({
   onMinCapacityChange,
   whiteboardOnly,
   onWhiteboardOnlyChange,
+  sortOrder,
+  onSortOrderChange,
+  showSort = false,
 }) => {
   const theme = useTheme();
   const { t } = useI18n();
@@ -90,6 +97,31 @@ const FilterBar: React.FC<FilterBarProps> = ({
           </ChalmersText>
         </Pressable>
       </View>
+
+      {showSort && onSortOrderChange && (
+        <View style={styles.sortRow}>
+          {(['longest', 'soonest'] as SortOrder[]).map((option) => {
+            const selected = sortOrder === option;
+            return (
+              <Pressable
+                key={option}
+                onPress={() => onSortOrderChange(option)}
+                style={[
+                  styles.chip,
+                  { borderColor: theme.border },
+                  selected && { backgroundColor: colors.bla, borderColor: colors.bla },
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+              >
+                <ChalmersText variant="caption1" color={selected ? colors.white : theme.text}>
+                  {option === 'longest' ? t.studyRoomsSortLongest : t.studyRoomsSortSoonest}
+                </ChalmersText>
+              </Pressable>
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 };
@@ -116,6 +148,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: spacing.xs,
+  },
+  sortRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: spacing.xs,
+    marginTop: spacing.xs,
   },
   filterIcon: {
     marginRight: spacing.xs / 2,

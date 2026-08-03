@@ -35,6 +35,8 @@ const StudyRoomsScreen: React.FC<StudyRoomsScreenProps> = ({ repository }) => {
     setSearch,
     setMinCapacity,
     setWhiteboardOnly,
+    sortOrder,
+    setSortOrder,
     visibleRooms,
     reload,
   } = useStudyRooms({ repository });
@@ -54,6 +56,9 @@ const StudyRoomsScreen: React.FC<StudyRoomsScreenProps> = ({ repository }) => {
         onMinCapacityChange={setMinCapacity}
         whiteboardOnly={filters.whiteboardOnly}
         onWhiteboardOnlyChange={setWhiteboardOnly}
+        sortOrder={sortOrder}
+        onSortOrderChange={setSortOrder}
+        showSort={tab === 'bookable'}
       />
 
       {loadState === 'loading' && (

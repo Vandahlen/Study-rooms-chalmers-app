@@ -24,6 +24,8 @@ export interface Translation {
   studyRoomsLoadError: string;
   studyRoomsTryAgain: string;
   studyRoomsEmpty: string;
+  studyRoomsSortLongest: string;
+  studyRoomsSortSoonest: string;
 }
 
 export const translations: Record<Language, Translation> = {
@@ -43,6 +45,8 @@ export const translations: Record<Language, Translation> = {
     studyRoomsLoadError: "Couldn't load study rooms.",
     studyRoomsTryAgain: 'Try again',
     studyRoomsEmpty: 'No rooms match your filters right now.',
+    studyRoomsSortLongest: 'Longest available',
+    studyRoomsSortSoonest: 'Soonest to fill up',
   },
   sv: {
     studyRoomsTitle: 'Lediga grupprum',
@@ -60,5 +64,7 @@ export const translations: Record<Language, Translation> = {
     studyRoomsLoadError: 'Kunde inte hämta lediga grupprum.',
     studyRoomsTryAgain: 'Försök igen',
     studyRoomsEmpty: 'Inga rum matchar dina filter just nu.',
+    studyRoomsSortLongest: 'Längst tillgänglighet',
+    studyRoomsSortSoonest: 'Snarast ledigt',
   },
 };

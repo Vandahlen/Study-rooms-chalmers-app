@@ -10,8 +10,9 @@ import { IStudyRoomRepository, StudyRoom } from '../types/studyRoom';
 import {
   DEFAULT_ROOM_FILTERS,
   RoomFilters,
+  SortOrder,
   filterRooms,
-  sortByLongestAvailable,
+  sortRoomsBy,
 } from '../services/roomFilters';
 
 export type LoadState = 'loading' | 'ready' | 'error';
@@ -33,6 +34,7 @@ export function useStudyRooms({ repository }: UseStudyRoomsArgs) {
   const [rooms, setRooms] = useState<StudyRoom[]>([]);
   const [tab, setTab] = useState<RoomTab>('bookable');
   const [filters, setFilters] = useState<RoomFilters>(DEFAULT_ROOM_FILTERS);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('longest');
 
   const load = useCallback(async () => {
     setLoadState('loading');
@@ -65,8 +67,8 @@ export function useStudyRooms({ repository }: UseStudyRoomsArgs) {
     const wantBookable = tab === 'bookable';
     const scoped = rooms.filter((room) => room.bookable === wantBookable);
     const filtered = filterRooms(scoped, filters);
-    return wantBookable ? sortByLongestAvailable(filtered) : filtered;
-  }, [rooms, tab, filters]);
+    return wantBookable ? sortRoomsBy(filtered, sortOrder) : filtered;
+  }, [rooms, tab, filters, sortOrder]);
 
   return {
     loadState,
@@ -76,6 +78,8 @@ export function useStudyRooms({ repository }: UseStudyRoomsArgs) {
     setSearch,
     setMinCapacity,
     setWhiteboardOnly,
+    sortOrder,
+    setSortOrder,
     visibleRooms,
     reload: load,
   };

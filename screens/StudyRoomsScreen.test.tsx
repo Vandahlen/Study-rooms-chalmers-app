@@ -56,3 +56,29 @@ test('switching to the open areas tab shows non-bookable rooms', async () => {
   expect(output).toContain('Vasa A');
   expect(output).not.toContain('EDIT 5128');
 });
+
+test('switching sort order to soonest reorders the bookable rooms', async () => {
+  let renderer: ReactTestRenderer.ReactTestRenderer;
+  await ReactTestRenderer.act(async () => {
+    renderer = renderScreen();
+  });
+
+  // I18nProvider defaults to Swedish ('sv') with no override in renderScreen(),
+  // so the rendered label is the Swedish translation, not the English one.
+  const soonestButton = renderer!.root.findByProps({ children: 'Snarast ledigt' });
+  // ChalmersText -> View -> View -> Pressable: onPress lives 3 levels up
+  // from the matched ChalmersText instance (mirrors the testID-based
+  // lookup workaround noted above for the same Pressable/fiber quirk).
+  await ReactTestRenderer.act(async () => {
+    soonestButton.parent!.parent!.parent!.props.onPress();
+  });
+
+  const output = JSON.stringify(renderer!.toJSON());
+  const idxMl2 = output.indexOf('ML2');
+  const idxEdit5128 = output.indexOf('EDIT 5128');
+  const idxEdit3103 = output.indexOf('EDIT 3103');
+  const idxSbH3 = output.indexOf('SB-H3');
+  expect(idxMl2).toBeLessThan(idxEdit5128);
+  expect(idxEdit5128).toBeLessThan(idxEdit3103);
+  expect(idxEdit3103).toBeLessThan(idxSbH3);
+});

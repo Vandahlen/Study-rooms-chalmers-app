@@ -48,3 +48,18 @@ export function sortByLongestAvailable(rooms: StudyRoom[]): StudyRoom[] {
     return new Date(b.freeUntil).getTime() - new Date(a.freeUntil).getTime();
   });
 }
+
+export type SortOrder = 'longest' | 'soonest';
+
+export function sortBySoonestToFillUp(rooms: StudyRoom[]): StudyRoom[] {
+  return [...rooms].sort((a, b) => {
+    if (a.freeUntil === null && b.freeUntil === null) return 0;
+    if (a.freeUntil === null) return 1;
+    if (b.freeUntil === null) return -1;
+    return new Date(a.freeUntil).getTime() - new Date(b.freeUntil).getTime();
+  });
+}
+
+export function sortRoomsBy(rooms: StudyRoom[], order: SortOrder): StudyRoom[] {
+  return order === 'soonest' ? sortBySoonestToFillUp(rooms) : sortByLongestAvailable(rooms);
+}

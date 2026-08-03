@@ -1,5 +1,5 @@
 import { StudyRoom } from '../types/studyRoom';
-import { DEFAULT_ROOM_FILTERS, filterRooms, sortByLongestAvailable } from './roomFilters';
+import { DEFAULT_ROOM_FILTERS, filterRooms, sortByLongestAvailable, sortBySoonestToFillUp, sortRoomsBy } from './roomFilters';
 
 const room = (overrides: Partial<StudyRoom>): StudyRoom => ({
   id: 'r',
@@ -69,5 +69,36 @@ describe('sortByLongestAvailable', () => {
     const originalOrder = [...rooms];
     sortByLongestAvailable(rooms);
     expect(rooms).toEqual(originalOrder);
+  });
+});
+
+describe('sortBySoonestToFillUp', () => {
+  test('orders by ascending freeUntil, nulls last', () => {
+    const rooms = [
+      room({ id: 'longest', freeUntil: '2026-08-01T18:00:00.000Z' }),
+      room({ id: 'open', freeUntil: null }),
+      room({ id: 'soon', freeUntil: '2026-08-01T12:00:00.000Z' }),
+    ];
+
+    expect(sortBySoonestToFillUp(rooms).map((r) => r.id)).toEqual([
+      'soon',
+      'longest',
+      'open',
+    ]);
+  });
+});
+
+describe('sortRoomsBy', () => {
+  const rooms = [
+    room({ id: 'longest', freeUntil: '2026-08-01T18:00:00.000Z' }),
+    room({ id: 'soon', freeUntil: '2026-08-01T12:00:00.000Z' }),
+  ];
+
+  test('dispatches to sortByLongestAvailable for "longest"', () => {
+    expect(sortRoomsBy(rooms, 'longest').map((r) => r.id)).toEqual(['longest', 'soon']);
+  });
+
+  test('dispatches to sortBySoonestToFillUp for "soonest"', () => {
+    expect(sortRoomsBy(rooms, 'soonest').map((r) => r.id)).toEqual(['soon', 'longest']);
   });
 });

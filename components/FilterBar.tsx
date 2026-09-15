@@ -70,7 +70,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
               style={[
                 styles.chip,
                 { borderColor: theme.border },
-                selected && { backgroundColor: colors.bla, borderColor: colors.bla },
+                selected && { backgroundColor: theme.primary, borderColor: theme.primary },
               ]}
               accessibilityRole="button"
               accessibilityState={{ selected }}
@@ -87,7 +87,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
           style={[
             styles.chip,
             { borderColor: theme.border },
-            whiteboardOnly && { backgroundColor: colors.bla, borderColor: colors.bla },
+            whiteboardOnly && { backgroundColor: theme.primary, borderColor: theme.primary },
           ]}
           accessibilityRole="button"
           accessibilityState={{ selected: whiteboardOnly }}
@@ -109,7 +109,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                 style={[
                   styles.chip,
                   { borderColor: theme.border },
-                  selected && { backgroundColor: colors.bla, borderColor: colors.bla },
+                  selected && { backgroundColor: theme.primary, borderColor: theme.primary },
                 ]}
                 accessibilityRole="button"
                 accessibilityState={{ selected }}

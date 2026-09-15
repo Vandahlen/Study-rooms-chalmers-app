@@ -14,9 +14,12 @@ import { I18nProvider } from '../i18n/I18nContext';
 
 const repository = createMockStudyRoomRepository();
 
+// Section drives the accent colour. `extra` is inferred from the karapp's
+// own 'Det lilla extra' tab, not measured - the host should pass its own
+// section when it embeds this module.
 function StudyRoomsExample(): React.JSX.Element {
   return (
-    <ThemeProvider>
+    <ThemeProvider section="extra">
       <I18nProvider>
         <SafeAreaView style={styles.safeArea}>
           <StudyRoomsScreen repository={repository} />

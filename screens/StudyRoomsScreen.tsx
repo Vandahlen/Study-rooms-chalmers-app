@@ -42,7 +42,7 @@ const StudyRoomsScreen: React.FC<StudyRoomsScreenProps> = ({ repository }) => {
   } = useStudyRooms({ repository });
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={styles.container}>
       <ChalmersText variant="heading1" style={styles.title}>
         {t.studyRoomsTitle}
       </ChalmersText>

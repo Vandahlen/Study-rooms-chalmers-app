@@ -9,7 +9,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import StudyRoomsScreen from '../screens/StudyRoomsScreen';
 import { createMockStudyRoomRepository } from '../services/MockStudyRoomRepository';
-import { ThemeProvider } from 'kar-ui-kit';
+import { ThemeProvider, ChalmersBackground } from 'kar-ui-kit';
 import { I18nProvider } from '../i18n/I18nContext';
 
 const repository = createMockStudyRoomRepository();
@@ -20,11 +20,13 @@ const repository = createMockStudyRoomRepository();
 function StudyRoomsExample(): React.JSX.Element {
   return (
     <ThemeProvider section="extra">
+      <ChalmersBackground>
       <I18nProvider>
         <SafeAreaView style={styles.safeArea}>
           <StudyRoomsScreen repository={repository} />
         </SafeAreaView>
       </I18nProvider>
+      </ChalmersBackground>
     </ThemeProvider>
   );
 }

@@ -65,7 +65,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
 
       {room.bookable && room.bookingUrl && (
         <Pressable onPress={handleBookPress} accessibilityRole="button">
-          <ChalmersText variant="paragraph2" color={colors.bla}>
+          <ChalmersText variant="paragraph2" color={theme.primary}>
             {t.studyRoomsBookButton}
           </ChalmersText>
         </Pressable>

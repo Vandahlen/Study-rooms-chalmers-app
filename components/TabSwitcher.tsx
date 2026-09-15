@@ -27,7 +27,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ tab, onChange }) => {
         key={value}
         testID={`tab-${value}`}
         onPress={() => onChange(value)}
-        style={[styles.tab, selected && { backgroundColor: colors.bla }]}
+        style={[styles.tab, selected && { backgroundColor: theme.primary }]}
         accessibilityRole="button"
         accessibilityState={{ selected }}
       >

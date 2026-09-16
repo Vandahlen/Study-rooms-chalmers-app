@@ -59,9 +59,10 @@ test('switching to the open areas tab shows non-bookable rooms', async () => {
   // findAllByType(Pressable) cannot match RN's memo-wrapped Pressable
   // under React 19 + react-test-renderer 19.2.3 (a fiber-internals
   // incompatibility, unrelated to this screen's wiring) - look the tab
-  // button up by testID instead. TabSwitcher renders `testID={`tab-${value}`}`
-  // on each tab Pressable.
-  const openTabButton = renderer!.root.findByProps({ testID: 'tab-open' });
+  // button up by testID instead. TabSwitcher delegates to kar-ui-kit's
+  // ChalmersSegmentedControl with testID "tab", which renders
+  // `tab-segment-<index>` on each segment; "open" is index 1.
+  const openTabButton = renderer!.root.findByProps({ testID: 'tab-segment-1' });
   await ReactTestRenderer.act(async () => {
     openTabButton.props.onPress();
   });

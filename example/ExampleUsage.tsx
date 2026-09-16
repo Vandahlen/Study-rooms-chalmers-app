@@ -6,7 +6,8 @@
  * Theme/I18n providers.
  */
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import StudyRoomsScreen from '../screens/StudyRoomsScreen';
 import { createMockStudyRoomRepository } from '../services/MockStudyRoomRepository';
 import { ThemeProvider, ChalmersBackground } from 'kar-ui-kit';
@@ -19,6 +20,7 @@ const repository = createMockStudyRoomRepository();
 // section when it embeds this module.
 function StudyRoomsExample(): React.JSX.Element {
   return (
+    <SafeAreaProvider>
     <ThemeProvider section="extra">
       <ChalmersBackground>
       <I18nProvider>
@@ -28,6 +30,7 @@ function StudyRoomsExample(): React.JSX.Element {
       </I18nProvider>
       </ChalmersBackground>
     </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
 

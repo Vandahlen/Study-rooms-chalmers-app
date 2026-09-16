@@ -7,8 +7,16 @@
  * matching the spec's "storlek" filter without needing a stepper.
  */
 import React from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import { ChalmersText, SearchIcon, FilterIcon, colors, radii, spacing, useTheme } from 'kar-ui-kit';
+import { Pressable, StyleSheet, View } from 'react-native';
+import {
+  ChalmersText,
+  ChalmersSearchField,
+  FilterIcon,
+  colors,
+  radii,
+  spacing,
+  useTheme,
+} from 'kar-ui-kit';
 import type { SortOrder } from '../services/roomFilters';
 import { useI18n } from '../i18n/I18nContext';
 
@@ -42,22 +50,13 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <View style={styles.container}>
-      <View
-        style={[
-          styles.searchRow,
-          { borderColor: theme.border, backgroundColor: theme.inputBg },
-        ]}
-      >
-        <SearchIcon size={16} color={theme.subText} />
-        <TextInput
-          value={search}
-          onChangeText={onSearchChange}
-          placeholder={t.studyRoomsSearchPlaceholder}
-          placeholderTextColor={theme.subText}
-          style={[styles.search, { color: theme.text }]}
-          accessibilityLabel={t.studyRoomsSearchPlaceholder}
-        />
-      </View>
+      <ChalmersSearchField
+        value={search}
+        onChangeText={onSearchChange}
+        placeholder={t.studyRoomsSearchPlaceholder}
+        accessibilityLabel={t.studyRoomsSearchPlaceholder}
+        style={styles.search}
+      />
 
       <View style={styles.chipRow}>
         <FilterIcon size={16} color={theme.subText} style={styles.filterIcon} />
@@ -130,18 +129,8 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: spacing.md,
   },
-  searchRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-    borderWidth: 1,
-    borderRadius: radii.sm,
-    paddingHorizontal: spacing.sm,
-    marginBottom: spacing.sm,
-  },
   search: {
-    flex: 1,
-    paddingVertical: spacing.sm,
+    marginBottom: spacing.sm,
   },
   chipRow: {
     flexDirection: 'row',
